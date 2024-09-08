@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 // app.use(cors());
 app.use(cors({
-  origin: 'https://postre-client.herokuapp.com',
+  origin: 'https://quiet-leandra-elpostre-a2b95fa0.koyeb.app/',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }))
 
