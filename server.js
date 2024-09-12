@@ -5,7 +5,7 @@ const app = require('./app')
 
 // ! DB SETUP
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8000;
 const server = app.listen(port, () => {
     console.log(`PostrePedidos backend running on port ${port}...`);
 })
