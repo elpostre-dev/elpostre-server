@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 // app.use(cors());
 app.use(cors({
-  origin: 'https://quiet-leandra-elpostre-a2b95fa0.koyeb.app/',
+  origin: 'https://elpostrepedidos.netlify.app/',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }))
 
