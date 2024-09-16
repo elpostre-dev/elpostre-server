@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 // app.use(cors());
 app.use(cors({
-  origin: 'https://elpostrepedidos.netlify.app/',
+  origin: '*',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
 }))
 
