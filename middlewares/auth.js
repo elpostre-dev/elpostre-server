@@ -13,20 +13,26 @@ exports.checkSession = async (req, res, next) => {
     ) {
         token = req.headers.authorization.split(' ')[1];
     }
-    if (!token)
+    if (!token) {
+        console.log('no token');
         return next(new MyError(401, messages.auth.invalidToken.sp));
+    }
     //   validate token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET).catch(err => {
         return next(new MyError(401, messages.auth.invalidToken.sp))
     })
-    if (!decoded)
+    if (!decoded) {
+        console.log('no decoded');
         return next(new MyError(401, messages.auth.invalidToken.sp));
+    }
 
     //   check if user exists
     const freshUser = await User.query().modify('getUserById', decoded.sUserId);
 
-    if (!freshUser)
+    if (!freshUser) {
+        console.log('no user !freshUser');
         return next(new MyError(401), messages.auth.login.notFoundUser.sp);
+    }
 
     req.user = freshUser;
     next();

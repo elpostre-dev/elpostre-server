@@ -34,11 +34,15 @@ exports.login = async (req, res, next) => {
 
     //   format email input
     const user = await User.query().modify('getUserByEmailLogin', email);
-    if (!user)
+    if (!user) {
+        console.log('no user');
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
+    }
     const pass = bcrypt.compareSync(password, user.sPassword);
-    if (!pass)
+    if (!pass) {
+        console.log('no correct pass');
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
+    }
 
     delete user.password;
 
