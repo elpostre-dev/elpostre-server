@@ -39,7 +39,11 @@ exports.login = async (req, res, next) => {
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
     }
     // const pass = bcrypt.compareSync(password, user.sPassword);
+    console.log('user from DB:', user)
+    console.log('typed pass from User:', password)
     let typedPass = bcrypt.hashSync(password, 10)
+    console.log('typed pass hashed:', typedPass)
+    console.log('hash pass from DB:', user.sPassword)
     const pass = (typedPass === user.sPassword)
     if (!pass) {
         console.log('no correct pass');

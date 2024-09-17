@@ -27,6 +27,8 @@ config.adminSetup = async function adminSetup() {
             // let mySalt = await bcrypt.genSalt(10);
             // let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, mySalt)
             let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, 10)
+            console.log('Mississippi plain to DB:', process.env.MISSISSIPPI_PASS);
+            console.log('Mississippi hash to DB:', hash);
             await Users.query().modify('signup', {
                 sName: 'Rio',
                 sLastname: 'Mississippi',
