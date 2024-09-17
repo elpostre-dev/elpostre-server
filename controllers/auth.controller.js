@@ -40,9 +40,7 @@ exports.login = async (req, res, next) => {
     }
 
     // Compare entered password with hashed password in the database
-    // const isPasswordCorrect = bcrypt.compareSync(password, user.sPassword);
-    const isPasswordCorrect = (password === user.sPassword);
-
+    const isPasswordCorrect = bcrypt.compareSync(password, user.sPassword);
     if (!isPasswordCorrect) {
         console.log('no correct pass');
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
