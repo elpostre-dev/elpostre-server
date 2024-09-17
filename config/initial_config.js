@@ -10,8 +10,9 @@ config.adminSetup = async function adminSetup() {
         if (lomas) {
             console.log('Lomas already exists');
         } else {
-            let mySalt = await bcrypt.genSalt(10);
-            let hash = bcrypt.hashSync(process.env.LOMAS_PASS, mySalt)
+            // let mySalt = await bcrypt.genSalt(10);
+            // let hash = bcrypt.hashSync(process.env.LOMAS_PASS, mySalt)
+            let hash = bcrypt.hashSync(process.env.LOMAS_PASS, 10)
             await Users.query().modify('signup', {
                 sName: 'Lomas',
                 sLastname: 'del Valle',
@@ -23,8 +24,9 @@ config.adminSetup = async function adminSetup() {
         if (mississippi) {
             console.log('Mississippi already exists');
         } else {
-            let mySalt = await bcrypt.genSalt(10);
-            let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, mySalt)
+            // let mySalt = await bcrypt.genSalt(10);
+            // let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, mySalt)
+            let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, 10)
             await Users.query().modify('signup', {
                 sName: 'Rio',
                 sLastname: 'Mississippi',
