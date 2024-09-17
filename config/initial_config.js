@@ -11,12 +11,12 @@ config.adminSetup = async function adminSetup() {
         if (lomas) {
             console.log('Lomas already exists');
         } else {
-            let hash = bcrypt.hashSync(process.env.LOMAS_PASS, 10); // 10 is the salt rounds
+            // let hash = bcrypt.hashSync(process.env.LOMAS_PASS, 10); // 10 is the salt rounds
             await Users.query().modify('signup', {
                 sName: 'Lomas',
                 sLastname: 'del Valle',
                 sEmail: process.env.LOMAS_EMAIL,
-                sPassword: hash
+                sPassword: process.env.LOMAS_PASS
             });
             console.log('Lomas was created!');
         }
@@ -24,12 +24,12 @@ config.adminSetup = async function adminSetup() {
         if (mississippi) {
             console.log('Mississippi already exists');
         } else {
-            let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, 10); // 10 is the salt rounds
+            // let hash = bcrypt.hashSync(process.env.MISSISSIPPI_PASS, 10); // 10 is the salt rounds
             await Users.query().modify('signup', {
                 sName: 'Rio',
                 sLastname: 'Mississippi',
                 sEmail: process.env.MISSISSIPPI_EMAIL,
-                sPassword: hash
+                sPassword: process.env.MISSISSIPPI_PASS
             });
             console.log('Mississippi was created!');
         }
