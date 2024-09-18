@@ -42,10 +42,14 @@ app.use((req, res, next) => {
 
 
 // app.use(cors());
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
-}))
+const corsOptions = {
+  origin: 'https://elpostrepedidos.netlify.app',  // Allow only your frontend origin
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  credentials: true,  // If you need to support cookies or authentication tokens
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add other headers if necessary
+};
+
+app.use(cors(corsOptions));
 
 // Add headers
 // app.use(function (req, res, next) {
