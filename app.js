@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 
 // app.use(cors());
 const corsOptions = {
-  origin: 'https://elpostrepedidos.netlify.app',  // Allow only your frontend origin
+  origin: '*',  // Allow only your frontend origin
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
   credentials: true,  // If you need to support cookies or authentication tokens
   allowedHeaders: ['Content-Type', 'Authorization'], // Add other headers if necessary
@@ -52,12 +52,12 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Add headers
-// app.use(function (req, res, next) {
+app.use(function (req, res, next) {
 
-//   // Website you wish to allow to connect
-//   res.setHeader('Access-Control-Allow-Origin', 'https://postre-client.herokuapp.com');
-//   next()
-// });
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+  next()
+});
 
 // set security HTTP headers
 app.use(helmet())
