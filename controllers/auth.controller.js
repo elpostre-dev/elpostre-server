@@ -28,7 +28,7 @@ exports.signup = aH(async (req, res, next) => {
 })
 
 exports.login = async (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
     let { email, password } = req.body;
