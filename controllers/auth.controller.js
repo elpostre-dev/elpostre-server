@@ -28,27 +28,22 @@ exports.signup = aH(async (req, res, next) => {
 })
 
 exports.login = async (req, res, next) => {
-    let { email, password } = req.body;
+    res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
+    let { email, password } = req.body;
     email = email.toLowerCase();
 
-    // Format email input
     const user = await User.query().modify('getUserByEmailLogin', email);
     if (!user) {
-        console.log('no user');
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
     }
 
-    // Compare entered password with hashed password in the database
     const isPasswordCorrect = bcrypt.compareSync(password, user.sPassword);
     if (!isPasswordCorrect) {
-        console.log('no correct pass');
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
     }
 
-    // Remove the password from the user object before sending the response
     delete user.sPassword;
-
-    // Create a token and send the response
     authServices.createSendToken(user, 200, messages.auth.login.success, res);
 };
