@@ -21,6 +21,12 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 
 var app = express();
 
+// Configuración de CORS
+app.use(cors({
+  origin: 'https://elpostrepedidos.netlify.app',
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
+}))
+
 // Body parser, reading data from body into req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,16 +45,6 @@ app.use((req, res, next) => {
   });
   next();
 });
-
-
-const corsOptions = {
-  origin: 'https://elpostrepedidos.netlify.app',  // Allow only your frontend origin
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
-  credentials: true,  // Support cookies or authentication tokens
-  allowedHeaders: ['Content-Type', 'Authorization'], // Add other headers if necessary
-};
-
-app.use(cors(corsOptions));
 
 // set security HTTP headers
 app.use(helmet())
