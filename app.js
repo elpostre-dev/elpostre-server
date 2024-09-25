@@ -25,16 +25,8 @@ var app = express();
 const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'], // Asegúrate de que las cabeceras necesarias estén permitidas
-  credentials: true, // Si necesitas enviar cookies o cabeceras de autenticación
-  preflightContinue: false, // Para que la respuesta OPTIONS termine aquí
-  optionsSuccessStatus: 204, // Algunos navegadores (como IE) requieren un estado 204 para las respuestas preflight
 };
 
-// Aplica CORS globalmente para todas las rutas
-app.use(cors(corsOptions));
-
-// Asegura que las solicitudes preflight para todas las rutas se manejen correctamente
 app.options('*', cors(corsOptions));
 
 // Body parser, reading data from body into req.body
