@@ -27,7 +27,12 @@ const corsOptions = {
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
 };
 
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptions)); // Aplica CORS globalmente
+
+app.options('/api/v1/auth/*', cors(corsOptions)); // Permite preflight para autenticación
+// app.options('/api/v1/categories/*', cors(corsOptions)); // Permite preflight para categorías
+// app.options('/api/v1/products/*', cors(corsOptions)); // Permite preflight para productos
+// app.options('/api/v1/orders/*', cors(corsOptions)); // Permite preflight para pedidos
 
 // Body parser, reading data from body into req.body
 app.use(express.json());
