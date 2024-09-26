@@ -30,17 +30,17 @@ app.use(cors({
 }));
 
 app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Authorization,Content-Type');
-  res.header('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.sendStatus(204); // No Content, lo que significa que la preflight request es aceptada
 });
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Authorization,Content-Type');
+  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });

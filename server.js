@@ -11,9 +11,9 @@ const server = app.listen(port, () => {
 })
 
 if (process.env.NODE_ENV != 'development')
-    process.on('unhandledRejection', err => {
+    process.on('unhandledRejection', (reason, promise) => {
         console.log('UNHANDLED REJECTION! 💥 Shutting down...');
-        console.log(err.name, err.message);
+        console.log(reason);
         server.close(() => {
             process.exit(1);
         });
