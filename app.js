@@ -25,6 +25,7 @@ var app = express();
 app.use(cors({
   origin: 'https://elpostrepedidos.netlify.app',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  credentials: true, // Habilitar credenciales
 }));
 
 // Body parser, reading data from body into req.body
