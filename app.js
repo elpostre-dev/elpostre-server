@@ -24,11 +24,11 @@ var app = express();
 // Configuración de CORS
 const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
   // allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
-  // credentials: true,
-  preflightContinue: false,
+  credentials: true,
+  // preflightContinue: false,
 };
 
 app.use(cors(corsOptions));
