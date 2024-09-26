@@ -29,7 +29,7 @@ app.use(cors({
   credentials: true
 }));
 
-// app.options('*', cors()); // Preflight all routes
+app.options('*', cors()); // Preflight all routes
 
 // Body parser, reading data from body into req.body
 app.use(express.json());
