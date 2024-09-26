@@ -27,7 +27,8 @@ const corsOptions = {
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
 };
 
-app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
 // Body parser, reading data from body into req.body
 app.use(express.json());

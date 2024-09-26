@@ -34,16 +34,20 @@ exports.login = async (req, res, next) => {
     let { email, password } = req.body;
     email = email.toLowerCase();
 
-    // const user = await User.query().modify('getUserByEmailLogin', email);
-    // if (!user) {
-    //     return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
-    // }
-
-    const isPasswordCorrect = (password === process.env.MISSISSIPPI_PASS)
-    if (!isPasswordCorrect) {
+    const user = await User.query().modify('getUserByEmailLogin', email);
+    console.log('user', user);
+    if (!user) {
+        console.log('no user');
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
     }
 
-    // delete user.sPassword;
-    // authServices.createSendToken(user, 200, messages.auth.login.success, res);
+    // const isPasswordCorrect = (password === process.env.MISSISSIPPI_PASS)
+    const isPasswordCorrect = bcrypt.compareSync(password, user.sPassword);
+    if (!isPasswordCorrect) {
+        console.log('pass incorrect');
+        return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
+    }
+
+    delete user.sPassword;
+    authServices.createSendToken(user, 200, messages.auth.login.success, res);
 };
