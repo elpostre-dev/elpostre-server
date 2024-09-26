@@ -35,6 +35,14 @@ app.options('*', (req, res) => {
   res.send();
 });
 
+// Add headers
+app.use(function (req, res, next) {
+
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+  next()
+});
+
 // Body parser, reading data from body into req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
