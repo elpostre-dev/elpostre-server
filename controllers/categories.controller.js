@@ -1,6 +1,9 @@
 const Categories = require('../models/categories.model')
 
 exports.getCats = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const cats = await Categories.query().modify('getCategories')
 
     res.status(200).json({
@@ -11,6 +14,9 @@ exports.getCats = async function (req, res, next) {
 
 
 exports.getCat = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sCategoryId } = req.params
     const cat = await Categories.query().modify('getCategory', { sCategoryId })
 
@@ -21,6 +27,9 @@ exports.getCat = async function (req, res, next) {
 }
 
 exports.createCat = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sName } = req.body
 
     const newCat = await Categories.query().modify('createCategory', {

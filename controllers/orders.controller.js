@@ -6,6 +6,9 @@ const MyError = require('../utils/myError');
 const i_services = require('../services/index_services')
 
 exports.getOrders = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     let { eEstablishment, fromDate, toDate, bPaid } = req.query
     if (toDate) {
         toDate = new Date(toDate)
@@ -21,6 +24,9 @@ exports.getOrders = async function (req, res, next) {
 }
 
 exports.markDelivered = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sOrderId } = req.params
     const { bDelivered } = req.body
     console.log(bDelivered);
@@ -39,6 +45,9 @@ exports.markDelivered = async function (req, res, next) {
 }
 
 exports.editOrder = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sName, sLastname, sPhone, sEmail, eEstablishment, dTotal, dPaid, sSalesAgent, aProducts, bDelivery, sStreet, sNumber, sColonia, sZip, sComment } = req.body
     let { tHour, tDay } = req.body
     const { sOrderId } = req.params
@@ -82,6 +91,9 @@ exports.editOrder = async function (req, res, next) {
 }
 
 exports.deleteOrder = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sOrderId } = req.params;
     // verify order
     const order = await Order.query().modify('deleteOrder', sOrderId)
@@ -95,6 +107,9 @@ exports.deleteOrder = async function (req, res, next) {
 }
 
 exports.createOrder = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sClientName, sClientLastname, sClientPhone, sClientEmail, eEstablishment, dTotal, dPaid, tDay, tHour, sSalesAgent, aProducts, bDelivery, sStreet, sNumber, sColonia, sZip, sComment } = req.body
     let client = await Clients.query().modify('checkClient', { sName: sClientName, sLastname: sClientLastname, sPhone: sClientPhone })
     // if client doesn't exist, create a new one

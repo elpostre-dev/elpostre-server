@@ -22,28 +22,12 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 var app = express();
 
 // Configuración de CORS
-app.use(cors({
+const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Authorization', 'Content-Type'],
-  credentials: true, // Permite el envío de cookies y autenticación HTTP
-}));
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+};
 
-app.options('*', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.sendStatus(204); // No Content, lo que significa que la preflight request es aceptada
-});
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Authorization,Content-Type');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+app.options('*', cors(corsOptions));
 
 // Body parser, reading data from body into req.body
 app.use(express.json());

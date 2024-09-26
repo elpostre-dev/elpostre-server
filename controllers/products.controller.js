@@ -1,6 +1,9 @@
 const Products = require('../models/products.model')
 
 exports.getProducts = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sCategoryId } = req.query
 
     const products = await Products.query().modify('getProducts', { sCategoryId })
@@ -13,6 +16,9 @@ exports.getProducts = async function (req, res, next) {
 
 
 exports.getProduct = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sProductId } = req.params
 
     const product = await Products.query().modify('getProduct', sProductId)
@@ -24,6 +30,9 @@ exports.getProduct = async function (req, res, next) {
 }
 
 exports.createProduct = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sCategoryId, sName, dPrice } = req.body;
 
     const product = await Products.query().modify('createProduct', {
@@ -35,6 +44,9 @@ exports.createProduct = async function (req, res, next) {
 
 
 exports.updateProduct = async function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
     const { sCategoryId, sName, dPrice } = req.body;
 
     const product = await Products.query().modify('updateProduct', {
