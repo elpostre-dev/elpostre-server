@@ -21,28 +21,7 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 
 var app = express();
 
-// CORS
-const corsOptions = {
-  origin: 'https://elpostrepedidos.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-
-app.use(cors(corsOptions));
-
-// Manejo de solicitudes preflight
-app.options('*', cors(corsOptions));
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://elpostrepedidos.netlify.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-  next();
-});
+app.use(cors());
 
 // Body parser, reading data from body into req.body
 app.use(express.json());
