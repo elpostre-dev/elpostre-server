@@ -28,6 +28,13 @@ app.use(cors({
   credentials: true, // Habilitar credenciales
 }));
 
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Authorization,Content-Type');
+  res.send();
+});
+
 // Body parser, reading data from body into req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
