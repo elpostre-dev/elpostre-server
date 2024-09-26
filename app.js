@@ -21,15 +21,18 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 
 var app = express();
 
-// Configuración de CORS
-app.use(cors({
+// CORS
+const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+};
 
-app.options('*', cors()); // Preflight all routes
+app.use(cors(corsOptions));
+
+// Manejo de solicitudes preflight
+app.options('*', cors(corsOptions));
 
 // Body parser, reading data from body into req.body
 app.use(express.json());
