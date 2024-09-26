@@ -22,25 +22,27 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 var app = express();
 
 // Configuración de CORS
-app.options('*', cors({
+app.use(cors({
   origin: 'https://elpostrepedidos.netlify.app',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
-  credentials: true,
+  allowedHeaders: ['Authorization', 'Content-Type'],
+  credentials: true, // Permite el envío de cookies y autenticación HTTP
 }));
 
 app.options('*', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Authorization,Content-Type');
-  res.send();
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204); // No Content, lo que significa que la preflight request es aceptada
 });
 
-// Add headers
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
-  next()
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://elpostrepedidos.netlify.app');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Authorization,Content-Type');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  next();
 });
 
 // Body parser, reading data from body into req.body
