@@ -32,9 +32,6 @@ app.use(cors({
 app.options('*', cors()); // Preflight all routes
 
 
-// Manejo de solicitudes preflight
-app.options('*', cors(corsOptions));
-
 // Body parser, reading data from body into req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
