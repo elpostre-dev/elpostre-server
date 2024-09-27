@@ -25,8 +25,10 @@ var app = express();
 const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+  // credentials: true,  // Si estás utilizando cookies o sesiones, necesitarás habilitar esto
 };
 
+app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 // Body parser, reading data from body into req.body
