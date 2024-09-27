@@ -21,9 +21,6 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 
 var app = express();
 
-// Configuración de CORS
-app.use(cors()); // Permite CORS desde cualquier origen
-
 // Body parser, reading data from body into req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -41,6 +38,9 @@ app.use((req, res, next) => {
   });
   next();
 });
+
+// Configuración de CORS
+app.use(cors()); // Permite CORS desde cualquier origen
 
 // set security HTTP headers
 app.use(helmet())
