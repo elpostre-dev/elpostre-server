@@ -12,7 +12,11 @@ exports.getOrders = async function (req, res, next) {
         toDate.setDate(toDate.getDate() + 1)
     }
 
-    const orders = await Order.query().modify('getOrders', { eEstablishment, fromDate, toDate, bPaid })
+    const orders = await Order.query().modify(queryBuilder => {
+        queryBuilder
+            .skipUndefined()
+            .modify('getOrders', { eEstablishment, fromDate, toDate, bPaid });
+    });
 
     res.status(200).json({
         status: 'success',
