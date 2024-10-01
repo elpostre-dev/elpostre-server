@@ -21,19 +21,24 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 
 var app = express();
 
-// app.use(cors());
 const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'], // Ensure OPTIONS is allowed
-  allowedHeaders: ['Content-Type', 'Authorization'], // Include necessary headers
-  // credentials: true, // If you're handling cookies or credentials
-  preflightContinue: false, // Do not pass to the next handler after handling the OPTIONS request
-  optionsSuccessStatus: 204 // Status for successful preflight requests
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true, // Enable this if credentials (cookies or Authorization headers) are being sent
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Enable CORS globally
+app.options('*', cors(corsOptions)); // Handle preflight (OPTIONS) requests
 
-app.options('*', cors(corsOptions)); // Handle preflight requests
+app.use((req, res, next) => {
+  console.log('Request received from origin:', req.get('origin'));
+  console.log('Request method:', req.method);
+  console.log('CORS Headers:', res.get('Access-Control-Allow-Origin'));
+  next();
+});
 
 // Body parser, reading data from body into req.body
 app.use(express.json());
