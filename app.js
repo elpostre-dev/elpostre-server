@@ -42,10 +42,19 @@ app.use((req, res, next) => {
 
 
 // app.use(cors());
-app.use(cors({
+const corsOptions = {
   origin: 'https://elpostrepedidos.netlify.app',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
-}))
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'], // Ensure OPTIONS is allowed
+  allowedHeaders: ['Content-Type', 'Authorization'], // Include necessary headers
+  // credentials: true, // If you're handling cookies or credentials
+  preflightContinue: false, // Do not pass to the next handler after handling the OPTIONS request
+  optionsSuccessStatus: 204 // Status for successful preflight requests
+};
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions)); // Handle preflight requests
+
 
 // set security HTTP headers
 app.use(helmet())
