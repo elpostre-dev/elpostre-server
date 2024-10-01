@@ -26,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger('combined'));
 
+
 // delete password from logs
 app.use((req, res, next) => {
   let { password } = req.body;
@@ -39,8 +40,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// Configuración de CORS
-app.use(cors()); // Permite CORS desde cualquier origen
+
+// app.use(cors());
+app.use(cors({
+  origin: 'https://elpostrepedidos.netlify.app',
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
+}))
 
 // set security HTTP headers
 app.use(helmet())
