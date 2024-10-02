@@ -88,17 +88,19 @@ exports.signup = aH(async (req, res, next) => {
 exports.login = async (req, res, next) => {
     let { email, password } = req.body;
 
-    email = email.toLowerCase()
+    email = email.toLowerCase();
 
-    //   format email input
+    // Format email input and check user existence
     const user = await User.query().modify('getUserByEmailLogin', email);
     if (!user)
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
+
     const pass = bcrypt.compareSync(password, user.sPassword);
     if (!pass)
         return next(new MyError(401, messages.auth.login.invalidCredentials.sp));
 
     delete user.password;
 
+    // Send token with 100-day expiration
     authServices.createSendToken(user, 200, messages.auth.login.success, res);
 };

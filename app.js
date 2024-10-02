@@ -21,10 +21,23 @@ var orderProductsRouter = require('./routes/orderProducts.routes');
 
 var app = express();
 
+// Configure CORS with additional headers and preflight response
 app.use(cors({
-  origin: 'https://elpostrepedidos.netlify.app',
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH']
-}))
+  origin: 'https://elpostrepedidos.netlify.app',  // Your frontend URL
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],  // Include OPTIONS method
+  allowedHeaders: ['Content-Type', 'Authorization'],  // Add allowed headers
+  credentials: true,  // Allow credentials
+  preflightContinue: false,  // Handle preflight requests
+  optionsSuccessStatus: 204  // Set successful response status for preflight
+}));
+
+// Handle OPTIONS preflight requests manually if necessary
+app.options('*', cors({
+  origin: 'https://elpostrepedidos.netlify.app',  // Your frontend URL
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],  // Include OPTIONS method
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 
 app.use((req, res, next) => {
   console.log('Request received from origin:', req.get('origin'));
@@ -38,8 +51,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger('combined'));
 
-
-// delete password from logs
+// Delete password from logs
 app.use((req, res, next) => {
   let { password } = req.body;
   let body = { ...req.body };
@@ -52,8 +64,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// set security HTTP headers
+// Set security HTTP headers
 app.use(helmet())
 
 // Limit requests from same API
@@ -64,12 +75,10 @@ const limiter = rateLimit({
 });
 app.use('/api/*', limiter);
 
-
 // Data sanitization against XSS
 app.use(xss());
 
 app.use('/api/v1/auth', authRouter);
-
 
 const { checkSession } = require('./middlewares/auth')
 
@@ -85,7 +94,7 @@ app.use('/api/v1/order-products', orderProductsRouter);
 app.use(errorHandler())
 app.use(sendJson())
 
-// initial config
+// Initial config
 const init_config = require('./config/initial_config')
 init_config.adminSetup();
 
@@ -94,23 +103,12 @@ init_config.adminSetup();
 //   app.use(morgan('dev'));
 // }
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
 
-// use the express-static middleware
+// Use the express-static middleware
 app.use(express.static("public"))
-
-// // error handler
-// app.use(function (err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 module.exports = app;
