@@ -1,5 +1,4 @@
 const dotenv = require('dotenv')
-const db = require('./config/db.config')
 
 // process.on('uncaughtException', err => {
 //     console.log('UNCAUGHT EXCEPTION! Shutting down...');
@@ -32,8 +31,4 @@ process.on('SIGTERM', () => {
     server.close(() => {
         console.log('💥 Process terminated!');
     });
-});
-
-db.on('query', query => {
-    console.log(query.sql);
 });
