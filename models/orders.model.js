@@ -88,7 +88,7 @@ module.exports = class Order extends Model {
         getOrders(query, { eEstablishment, fromDate, toDate, bPaid }) {
             query.select('*')
             query.join('Clients', 'Clients.sClientId', 'Orders.sClientId')
-            query.select(db.raw(`TIME_FORMAT("tHour", "%h:%i") as time`))
+            query.select(db.raw(`to_char("tHour", 'HH:MI') as time`))
             query.withGraphJoined('Client')
             query.withGraphFetched('OrderProducts')
             query.modifyGraph('OrderProducts', graph => {
